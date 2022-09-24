@@ -1,0 +1,7 @@
+version: master
+repo: https://github.com/jbeder/yaml-cpp
+headers: include
+libs: build
+link:
+  - yaml-cpp
+

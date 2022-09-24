@@ -1,0 +1,4 @@
+name: cplus
+dependencies:
+  - termcolor
+  - yaml-cpp
