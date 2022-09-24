@@ -1,7 +1,12 @@
 version: master
 repo: https://github.com/jbeder/yaml-cpp
+build: |
+  mkdir build
+  cmake -S . -B build
+  cmake --build build -j
 headers: include
 libs: build
 link:
   - yaml-cpp
+
 
