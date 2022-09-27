@@ -2,3 +2,11 @@ name: cplus
 dependencies:
   - termcolor
   - yaml-cpp
+sources:
+  - src/cplus.cpp
+  # - src/git.cpp
+  - src/bootstrap/bootstrap_functions.cpp
+  - src/compiler_command.cpp
+include: include
+build_directory: build
+install_directory: bin

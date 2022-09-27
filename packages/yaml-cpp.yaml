@@ -1,8 +1,8 @@
-version: master
+version: yaml-cpp-0.7.0
 repo: https://github.com/jbeder/yaml-cpp
 build: |
   mkdir build
-  cmake -S . -B build
+  cmake -S . -B build -DBUILD_TESTING=OFF -DYAML_BUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release
   cmake --build build -j
 headers: include
 libs: build

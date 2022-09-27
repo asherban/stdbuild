@@ -1,0 +1,10 @@
+version: v1.5.0
+repo: https://github.com/libgit2/libgit2
+build: |
+  mkdir build
+  cmake -S . -B build -DLINK_WITH_STATIC_LIBRARIES=ON -DBUILD_TESTS=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_CLI=OFF -DBUILD_SHARED_LIBS=OFF
+  cmake --build build -j
+headers: include
+libs: build
+link:
+  - git2
