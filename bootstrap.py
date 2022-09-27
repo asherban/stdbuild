@@ -16,6 +16,9 @@ def get_dependency(name):
     base_dir = Path(__file__).resolve().parent
     package_dir = base_dir / "vendor" / name
 
+    if (package_dir.exists()):
+        return
+
     cmd = f"git clone --depth=1 --branch={version} {repo} {package_dir}"
     os.system(cmd)
 
@@ -52,10 +55,10 @@ def build():
 def main():
     os.chdir(path.dirname(__file__))    
     
-    # shutil.rmtree("vendor", ignore_errors=True)
-    # os.mkdir("vendor")
+    if (not os.path.exists("vendor")):
+        os.mkdir("vendor")
 
-    # get_dependency("yaml-cpp")
+    get_dependency("yaml-cpp")
 
     build()
 
