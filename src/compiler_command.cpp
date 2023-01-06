@@ -9,10 +9,15 @@ namespace fs = std::filesystem;
 
 namespace CPlus {
 
-CompilerCommand::CompilerCommand(const YAML::Node& _config) : config(_config), objects() {}
+CompilerCommand::CompilerCommand(const YAML::Node& _config)
+  : config(_config)
+  , objects()
+{
+}
 
-const std::string CompilerCommand::compilerOptions(
-    const std::string& packageName) const {
+const std::string
+CompilerCommand::compilerOptions(const std::string& packageName) const
+{
     YAML::Node config = YAML::LoadFile("packages/" + packageName + ".yaml");
     std::string baseDir = "vendor/" + packageName + "/";
 
@@ -24,7 +29,9 @@ const std::string CompilerCommand::compilerOptions(
     return oss.str();
 }
 
-void CompilerCommand::executeCompiler(const fs::path& file) {
+void
+CompilerCommand::executeCompiler(const fs::path& file)
+{
     std::stringstream oss;
     fs::path buildDirectory = config["build_directory"].as<std::string>();
 
@@ -38,7 +45,7 @@ void CompilerCommand::executeCompiler(const fs::path& file) {
     oss << "-I" << config["include"] << " ";
 
     fs::path outputObject =
-        buildDirectory / file.filename().replace_extension(".o");
+      buildDirectory / file.filename().replace_extension(".o");
 
     objects.push_back(outputObject);
 
@@ -50,7 +57,9 @@ void CompilerCommand::executeCompiler(const fs::path& file) {
     std::system(cmd.c_str());
 }
 
-void CompilerCommand::linkOutput() const {
+void
+CompilerCommand::linkOutput() const
+{
     std::stringstream oss;
 
     oss << "g++ ";
@@ -59,21 +68,23 @@ void CompilerCommand::linkOutput() const {
         oss << obj << " ";
     }
 
-    for (auto dep: config["dependencies"]) {
-        YAML::Node depConfig = YAML::LoadFile("packages/" + dep.as<std::string>() + ".yaml");
+    for (auto dep : config["dependencies"]) {
+        YAML::Node depConfig =
+          YAML::LoadFile("packages/" + dep.as<std::string>() + ".yaml");
 
         if (depConfig["libs"]) {
-            fs::path libDir = fs::path("vendor") / dep.as<std::string>() / depConfig["libs"].as<std::string>();
+            fs::path libDir = fs::path("vendor") / dep.as<std::string>() /
+                              depConfig["libs"].as<std::string>();
             oss << "-L" << libDir << " ";
         }
 
-        for (auto lib: depConfig["link"]) {
+        for (auto lib : depConfig["link"]) {
             oss << "-l" << lib << " ";
         }
     }
 
     fs::path buildDirectory = config["build_directory"].as<std::string>();
-    fs::path outputFile = fs::path(config["name"].as<std::string>()); 
+    fs::path outputFile = fs::path(config["name"].as<std::string>());
     oss << " --static -o " << buildDirectory / outputFile;
 
     std::string cmd = oss.str();
@@ -81,7 +92,9 @@ void CompilerCommand::linkOutput() const {
     std::system(cmd.c_str());
 }
 
-void CompilerCommand::run() {
+void
+CompilerCommand::run()
+{
     for (auto source : config["sources"]) {
         executeCompiler(source.as<std::string>());
     }
@@ -89,4 +102,4 @@ void CompilerCommand::run() {
     linkOutput();
 }
 
-}  // namespace CPlus
+} // namespace CPlus

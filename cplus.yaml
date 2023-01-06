@@ -2,11 +2,16 @@ name: cplus
 dependencies:
   - termcolor
   - yaml-cpp
+  - libgit2
+  - openssl  # From git2
+  - zlib     # From git2
 sources:
   - src/cplus.cpp
   # - src/git.cpp
   - src/bootstrap/bootstrap_functions.cpp
   - src/compiler_command.cpp
+  - src/install_command.cpp
+  - src/git.cpp
 include: include
 build_directory: build
 install_directory: bin

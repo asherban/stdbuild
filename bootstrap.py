@@ -32,7 +32,7 @@ def get_dependency(name):
 
 def build():
     sources = [
-        "src/cplus.cpp",
+        "src/bootstrap/bootstrap_main.cpp",
         "src/bootstrap/bootstrap_functions.cpp",
         "src/compiler_command.cpp", 
     ]

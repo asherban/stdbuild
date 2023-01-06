@@ -1,0 +1,11 @@
+version: openssl-3.0.4
+repo: https://github.com/openssl/openssl
+build: |
+  ./Configure
+  make -j
+headers: include
+libs: .
+link:
+  - ssl
+  - crypto
+  - dl
