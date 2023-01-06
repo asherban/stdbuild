@@ -1,0 +1,12 @@
+site_name: "std::build - Modern C++ Builds"
+
+nav:
+  - index.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+theme:
+  name: material

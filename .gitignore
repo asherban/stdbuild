@@ -3,3 +3,5 @@ cplus
 bin/cplus
 bin/cplus.bootstrap
 build
+/.tox
+/venv
